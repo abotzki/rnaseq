@@ -1,0 +1,2 @@
+sample,fastq_1,fastq_2,strandedness
+sample_REP1,/dataext/alex/3_S2_R1_001.fastq.gz,/dataext/alex/3_S2_R2_001.fastq.gz,forward
