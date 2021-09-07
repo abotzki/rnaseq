@@ -35,13 +35,5 @@ output:
             List of input adapter trimmed FastQ files of size 1 and 2 for
             single-end and paired-end data, respectively.
         pattern: "*.{fq.gz}"
-    - log:
-        type: file
-        description: Trimmomatic trimming report
-        pattern: "*_{report.txt}"
-    - version:
-        type: file
-        description: File containing software version
-        pattern: "*.{version.txt}"
 authors:
     - "@abotzki

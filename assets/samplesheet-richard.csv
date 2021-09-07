@@ -1,2 +1,9 @@
 sample,fastq_1,fastq_2,strandedness
-sample_REP1,/dataext/alex/3_S2_R1_001.fastq.gz,/dataext/alex/3_S2_R2_001.fastq.gz,forward
+sample1_WT_REP1,/data/alex/2_S1_R1_001_groomed_1P.fastq.gz,/data/alex/2_S1_R1_001_groomed_2P.fastq.gz,reverse
+sample2_WT_REP1,/data/alex/3_S2_R1_001_groomed_1P.fastq.gz,/data/alex/3_S2_R1_001_groomed_2P.fastq.gz,reverse
+sample3_WT_REP1,/data/alex/4_S3_R1_001_groomed_1P.fastq.gz,/data/alex/4_S3_R1_001_groomed_2P.fastq.gz,reverse
+sample4_WT_REP1,/data/alex/5_S4_R1_001_groomed_1P.fastq.gz,/data/alex/5_S4_R1_001_groomed_2P.fastq.gz,reverse
+sample5_KI_REP1,/data/alex/6_S5_R1_001_groomed_1P.fastq.gz,/data/alex/6_S5_R1_001_groomed_2P.fastq.gz,reverse
+sample6_KI_REP1,/data/alex/7_S6_R1_001_groomed_1P.fastq.gz,/data/alex/7_S6_R1_001_groomed_2P.fastq.gz,reverse
+sample7_KI_REP1,/data/alex/8_S7_R1_001_groomed_1P.fastq.gz,/data/alex/8_S7_R1_001_groomed_2P.fastq.gz,reverse
+sample8_KI_REP1,/data/alex/9_S8_R1_001_groomed_1P.fastq.gz,/data/alex/9_S8_R1_001_groomed_2P.fastq.gz,reverse

@@ -42,42 +42,53 @@ process TRIMMOMATIC {
     }
 
     // Clipping presets have to be evaluated in the context of SE/PE
-    def c_r1   = params.clip_r1 > 0             ? "--clip_r1 ${params.clip_r1}"                         : ''
-    def c_r2   = params.clip_r2 > 0             ? "--clip_r2 ${params.clip_r2}"                         : ''
-    def tpc_r1 = params.three_prime_clip_r1 > 0 ? "--three_prime_clip_r1 ${params.three_prime_clip_r1}" : ''
-    def tpc_r2 = params.three_prime_clip_r2 > 0 ? "--three_prime_clip_r2 ${params.three_prime_clip_r2}" : ''
-
+    def c_lead   = params.leading > 0             ? "LEADING:${params.leading}"                         : ''
+    def c_trail  = params.trailing > 0             ? "TRAILING:${params.trailing}"                         : ''
+    def c_adapter = params.adapter_file_path + params.adapter_file 
     // Added soft-links to original fastqs for consistent naming in MultiQC
     def software = getSoftwareName(task.process)
     def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     if (meta.single_end) {
         """
         [ ! -f  ${prefix}.fastq.gz ] && ln -s $reads ${prefix}.fastq.gz
-        trim_galore \\
+        [ ! -f $c_adapter ] && ln -s ${params.adapter_file} $c_adapter 
+        trimmomatic SE\\
             $options.args \\
-            --cores $cores \\
-            --gzip \\
-            $c_r1 \\
-            $tpc_r1 \\
-            ${prefix}.fastq.gz
-        echo \$(trim_galore --version 2>&1) | sed 's/^.*version //; s/Last.*\$//' > ${software}.version.txt
+            -threads $cores \\
+            ${prefix}_1.fastq.gz \\
+            ${prefix}_1.fq.gz \\
+            ILLUMINACLIP:${params.adapter_file}:2:30:10:1:true \\
+            $c_lead \\
+            $c_trail \\
+            SLIDINGWINDOW:4:15 \\
+            MINLEN:130 \\
+            HEADCROP:15 \\
+            CROP:130
+
+        echo '0.39' > ${software}.version.txt
         """
     } else {
         """
         [ ! -f  ${prefix}_1.fastq.gz ] && ln -s ${reads[0]} ${prefix}_1.fastq.gz
         [ ! -f  ${prefix}_2.fastq.gz ] && ln -s ${reads[1]} ${prefix}_2.fastq.gz
-        trim_galore \\
+        [ ! -f $c_adapter ] && ln -s ${params.adapter_file} $c_adapter 
+        trimmomatic PE\\
             $options.args \\
-            --cores $cores \\
-            --paired \\
-            --gzip \\
-            $c_r1 \\
-            $c_r2 \\
-            $tpc_r1 \\
-            $tpc_r2 \\
+            -threads $cores \\
             ${prefix}_1.fastq.gz \\
-            ${prefix}_2.fastq.gz
-        echo \$(trim_galore --version 2>&1) | sed 's/^.*version //; s/Last.*\$//' > ${software}.version.txt
+            ${prefix}_2.fastq.gz \\
+            ${prefix}_1.fq.gz \\
+            ${prefix}_U_1.fastq.gz \\
+            ${prefix}_2.fq.gz \\
+            ${prefix}_U_2.fastq.gz \\
+            ILLUMINACLIP:${params.adapter_file}:2:30:10:1:true \\
+            $c_lead \\
+            $c_trail \\
+            SLIDINGWINDOW:4:15 \\
+            MINLEN:130 \\
+            HEADCROP:15 \\
+            CROP:130
+        echo '0.39' > ${software}.version.txt
         """
     }
 }

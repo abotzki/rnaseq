@@ -16,7 +16,7 @@ process STAR_ALIGN {
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
         container 'https://depot.galaxyproject.org/singularity/star:2.6.1d--0'
     } else {
-        container 'quay.io/biocontainers/star:2.6.1d--0'
+        container 'quay.io/biocontainers/star:2.7.3a--0'
     }
 
     input:

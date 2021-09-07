@@ -269,6 +269,27 @@
             "fa_icon": "fas fa-cut",
             "description": "Options to adjust read trimming criteria.",
             "properties": {
+                "leading": {
+                    "type": "integer",
+                    "description": "Instructs trimmomatic to remove bp from the 5' end of read 1 (or single-end reads).",
+                    "fa_icon": "fas fa-cut"
+                },
+                "trailing": {
+                    "type": "integer",
+                    "description": "Instructs trimmomatic to remove bp from the 3' end of read 1 (or single-end reads).",
+                    "fa_icon": "fas fa-cut"
+                },
+
+                "adapter_file_path": {
+                    "type": "string",
+                    "description": "Defines adapter file path",
+                    "fa_icon": "fas fa-cut"
+                },
+                "adapter_file": {
+                    "type": "string",
+                    "description": "Defines adapter file like TruSeq3-SE.fa",
+                    "fa_icon": "fas fa-cut"
+                },
                 "clip_r1": {
                     "type": "integer",
                     "description": "Instructs Trim Galore to remove bp from the 5' end of read 1 (or single-end reads).",
@@ -390,6 +411,35 @@
                     "description": "Skip all of the alignment-based processes within the pipeline."
                 }
             }
+        },
+        "rddpred_options": {
+            "title": "RDDpred options",
+            "type": "object",
+            "description": "Options for processing bams with RDDpred",
+            "default": "",
+            "properties": {
+                "rddpred_databases_file_path": {
+                    "type": "string",
+                    "fa_icon": "fas fa-barcode",
+                    "description": "Define file path for list of bam files"
+                },
+                "pos_site_list": {
+                    "type": "string",
+                    "fa_icon": "fas fa-barcode",
+                    "description": "file path of the file with positive training data"
+                },
+                "neg_site_list": {
+                    "type": "string",
+                    "fa_icon": "fas fa-save",
+                    "description": "file path of the file path with negative training data."
+                },
+                "skip_rddpred": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-fast-forward",
+                    "description": "Skip all rddpred processes within the pipeline."
+                }
+            },
+            "fa_icon": "fas fa-barcode"
         },
         "process_skipping_options": {
             "title": "Process skipping options",
