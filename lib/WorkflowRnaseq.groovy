@@ -40,7 +40,7 @@ class WorkflowRnaseq {
         } else {
             if (!params.pseudo_aligner) {
                 log.error "--skip_alignment specified without --pseudo_aligner...please specify e.g. --pseudo_aligner ${valid_params['pseudoaligners'][0]}."
-                System.exit(1)
+                //System.exit(1)
             }
             skipAlignmentWarn(log)
         }

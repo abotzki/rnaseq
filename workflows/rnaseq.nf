@@ -35,7 +35,7 @@ if (ch_ribo_db.isEmpty()) {exit 1, "File ${ch_ribo_db.getName()} is empty!"}
 // Check alignment parameters
 def prepareToolIndices  = []
 if (!params.skip_alignment) { prepareToolIndices << params.aligner        }
-if (params.pseudo_aligner)  { prepareToolIndices << params.pseudo_aligner }
+//if (params.pseudo_aligner)  { prepareToolIndices << params.pseudo_aligner }
 
 // Get RSeqC modules to run
 def rseqc_modules = params.rseqc_modules ? params.rseqc_modules.split(',').collect{ it.trim().toLowerCase() } : []
@@ -299,12 +299,14 @@ workflow RNASEQ {
    // input subworkflow alignment with STAR
    ch_trimmed_reads = ch_trimmed_reads_fastqc 
    
+   if(!parama.skip_trimming) { 
    FASTQC_TRIM (
       ch_trimmed_reads_fastqc
    ) 
    ch_trimmed_fastqc_html_reports = FASTQC_TRIM.out.html
    ch_trimmed_fastqc_zip = FASTQC_TRIM.out.zip
    ch_trimmed_software_versions = FASTQC_TRIM.out.version   
+   }
 
     //
     // SUBWORKFLOW: Alignment with STAR and gene/transcript quantification with Salmon
@@ -339,7 +341,7 @@ workflow RNASEQ {
     }
 
     // create bamlists files for RDDPred based on the sample name <sample>_<condition>_<replicate>
-    if (!skip_rddpred) {
+    if (!params.skip_rddpred) {
        ch_genome_bam_for_rddpred = Channel.empty()
        ch_genome_bam_for_rddpred = ch_genome_bam.collect().flatten().collate(2)
        ch_genome_bam_for_rddpred.view()   

@@ -694,6 +694,12 @@
                     "hidden": true,
                     "fa_icon": "fas fa-bacon"
                 },
+                "enable_aks": {
+                    "type": "boolean",
+                    "description": "Run this workflow with Kubernetes on AKS. You can also use '-profile aks'.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-bacon"
+                },
                 "singularity_pull_docker_container": {
                     "type": "boolean",
                     "description": "Instead of directly downloading Singularity images for use with Singularity, force the workflow to pull and convert Docker containers instead.",
